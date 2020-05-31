@@ -49,7 +49,9 @@ struct FsmState {
     // Pointer to a function which is responsible for driving FSM forward
     // at the current position, read type as `*const FsmTrans`
     f: *const c_void,
-    // Pointer to a heap, in which FSM data is stored
+    // Pointer to a heap memory containing FSM data. In practical code
+    // it will be a generated `union` containing variants for each
+    // FSM position, not a fixed type.
     state: *mut [u64; SIZE],
 }
 
