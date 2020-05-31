@@ -1,0 +1,11 @@
+[package]
+name = "fsm-bench"
+version = "0.1.0"
+authors = ["Артём Павлов [Artyom Pavlov] <newpavlov@gmail.com>"]
+edition = "2018"
+
+[dependencies]
+rand = "0.7"
+
+[build-dependencies]
+rand = "0.7"
