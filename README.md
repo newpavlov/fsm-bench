@@ -122,7 +122,7 @@ hybrid: 1423.4±54.0 us
 enum: 1579.9±39.6 us
 ```
 
-As expected less indirection results in a better performance, for the simple state manipulations used in this benchmark the "function" approach results in an almost 30% speed-up. A bit surprisingly the "hybrid" approach also outperforms the baseline, although by a smaller margin equal to 10%. Since in latter case we essentially measure a difference between jump tables and raw function pointers, it looks like function pointers are a bit more suitable for implementing relatively large FSMs.
+As expected less indirection results in a better performance, for the simple state manipulations used in this benchmark the "function" approach results in an almost 30% speed-up. A bit surprisingly the "hybrid" approach also outperforms the baseline, although by a smaller margin equal to 10%. Since in the latter case we essentially measure a difference between jump tables and raw function pointers, it looks like function pointers are a bit more suitable for implementing relatively large FSMs.
 
 Thus we can say that the current Rust implementation of futures and generators is not strictly speaking zero-cost and can be potentially improved. Is it possible to implement the function pointer based approach in a backward compatible way? In theory it could be done by special-casing `Box<dyn Future>` and `Box<dyn Generator>` on compiler level and adjusting code generation accordingly. This will mean that memory layout  of generators and futures will slightly differ between stack and heap (i.e. the function pointer will stay on stack, as part of the `dyn` type). Unfortunately I am not familiar enough with the Rust compiler inner workings to judge whether such change would be practical or not.
 
