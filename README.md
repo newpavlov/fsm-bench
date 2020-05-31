@@ -108,7 +108,7 @@ fsm.drive(data1);
 fsm.drive(data2);
 ```
 
-Note that "function" approach does not mandate boxing all futures, it just a special-case handling of boxed FSMs. When FSM is kept on the stack, the "function" approach transforms into the "hybrid" one.
+Note that the "function" approach does not mandate boxing all futures, it just a special-case handling of boxed FSMs. When FSM is kept on the stack, the "function" approach transforms into the "hybrid" one.
 
 In practice FSMs should also properly support `Drop`. Only state transition functions know how to properly interpret the state data, so destructuring must be handled by them. Luckily dropping can be viewed as just yet another state transition dependent on the input data, thus we can simply add a drop flag to the `drive` signature in addition to `data`. By recieving `drop_flag` set to true, transition function will drop objects stored inside the state and will set the function transition pointer into a trap function (the last step could be omitted). After that the caller will deallocate the state memory if necessary.
 
